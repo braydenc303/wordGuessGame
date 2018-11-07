@@ -245,6 +245,7 @@ If you have any questions about this project or the material we have covered, pl
             var lettersGuessed = [];
             var guesses = 6;
             var hiddenLetters = ""
+            var incorrect = [];
 
             // press any key to start
             document.getElementById("myBtn").addEventListener("click", playGame);
@@ -268,6 +269,14 @@ If you have any questions about this project or the material we have covered, pl
 
                         if (letters.indexOf(userGuess) != -1) {
                             console.log(letters);
+                        } else {
+                            guesses--;
+                            document.getElementById("remaining").textContent = guesses;
+                            incorrect.push(userGuess);
+                            document.getElementById("lettersGuessed").textContent = incorrect;
+
+                            console.log(incorrect);
+                        
                         }
 
 
