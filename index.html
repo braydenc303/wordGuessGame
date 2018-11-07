@@ -271,11 +271,15 @@ If you have any questions about this project or the material we have covered, pl
                             console.log(letters);
                         } else {
                             guesses--;
+                            if (guesses == 0) {
+                                document.getElementById("game").textContent = "Game Over! Click refresh to try again.";
+                            } else {
                             document.getElementById("remaining").textContent = guesses;
                             incorrect.push(userGuess);
                             document.getElementById("lettersGuessed").textContent = incorrect;
 
                             console.log(incorrect);
+                        }
                         
                         }
 
