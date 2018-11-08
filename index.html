@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -220,7 +220,7 @@ If you have any questions about this project or the material we have covered, pl
 
 8. Letters Already Guessed: (Letters the user has guessed, displayed like `L Z Y H`). -->
         <div id="game">
-            <h1>It's Time For Corbin To Say The Word Of The Day</h1>
+            <h1>It's Time For Korben To Say The Word Of The Day</h1>
             <h2><button id="myBtn">Click Here</button> to get started</h2>
             <h3>Wins</h3>
             <h4 id="wins"></h4>
@@ -247,26 +247,62 @@ If you have any questions about this project or the material we have covered, pl
             var lettersGuessed = [];
             var guesses = 6;
             var hiddenLetters = ""
+            var hidden = [];
             var letters = "";
             var incorrect = [];
+            var indices = [];
+            var correct = [];
             var validGuesses = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
             // Functions------------------------------------------------------------
 
             function resetGame() {
                 var secretWord = secretWords[Math.floor(Math.random() * secretWords.length)];  
-                console.log(secretWord);
-                    letters = secretWord.split(""); 
+                    letters = secretWord.split("");
+                    hiddenLetters = ""; 
+                    hidden=[];
+                    guesses = 6;
+                    console.log(letters);
+
                     //If the word is `madonna`, display it like this when the game starts: `_ _ _ _ _ _ _`.
                 for (var i = 0; i < letters.length; i++) {
-                        //   console.log(letters[i]);
-                    hiddenLetters = hiddenLetters + "_ ";    
+                    hiddenLetters = hiddenLetters + "_ "; 
+                    hidden.push("_ ");   
                 }
                     document.getElementById("secretWord").textContent = hiddenLetters;
                     document.getElementById("remaining").textContent = guesses;
                     document.getElementById("wins").textContent = wins;
+                    // console.log(hidden);
+                    // console.log(hiddenLetters);
+                    // console.log(letters);
 
             }
+
+            function getAllIndexes(arr, val) {
+                var indexes = [];
+                var i;
+                for( i = 0; i < arr.length; i++)
+                    if (arr[i] === val) 
+                        indexes.push(i);
+                        return indexes;
+            }
+
+            
+
+            function correctGuess(userGuess) {
+                if (hidden !== letters){
+                    for (var i = 0; i < getAllIndexes(letters, userGuess).length; i++)
+                    hidden[getAllIndexes(letters, userGuess)[i]] = userGuess;
+                    console.log(hidden);
+                    // getAllIndexes(letters, userGuess);
+                    // console.log(letters);
+                    // console.log(hidden);
+                } else {
+                    wins = wins + 1;
+                    resetGame();
+                }
+            }
+            
 
             function incorrectGuess(userGuess) {
                 if (guesses == 0) {
@@ -285,26 +321,15 @@ If you have any questions about this project or the material we have covered, pl
             // Main Process------------------------------------------------------------
             // press any key to start. I changed this to a button click to make life easier.
             document.getElementById("myBtn").addEventListener("click", resetGame);
-
             document.onkeyup = function(event) {
                 var userGuess = event.key.toLowerCase();
                 if (letters.indexOf(userGuess) != -1) {
-                    // * As the user guesses the correct letters, reveal them: `m a d o _  _ a`. 
-                    console.log(letters);
+                    // * As the user guesses the correct letters, reveal them: `m a d o _  _ a`.
+                    correctGuess(userGuess); 
                 } else if (validGuesses.indexOf(userGuess) != -1) {
-                    // guesses--;
-                    // if (guesses == 0) {
-                        incorrectGuess(userGuess);
-                            //     document.getElementById("game").textContent = "Game Over! Click refresh to try again.";
-                            // } else {
-                            // document.getElementById("remaining").textContent = guesses;
-                            // incorrect.push(userGuess);
-                            // document.getElementById("lettersGuessed").textContent = incorrect;
-
-                            // console.log(incorrect);
-                        }
-                    }
-                // }
+                    incorrectGuess(userGuess);
+                }
+            }
   
                 
                 
