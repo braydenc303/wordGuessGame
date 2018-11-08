@@ -287,20 +287,21 @@ If you have any questions about this project or the material we have covered, pl
                         return indexes;
             }
 
-            
-
-            function correctGuess(userGuess) {
-                if (hidden !== letters){
-                    for (var i = 0; i < getAllIndexes(letters, userGuess).length; i++)
-                    hidden[getAllIndexes(letters, userGuess)[i]] = userGuess;
-                    console.log(hidden);
-                    // getAllIndexes(letters, userGuess);
-                    // console.log(letters);
-                    // console.log(hidden);
-                } else {
-                    wins = wins + 1;
+            function checkWin() {
+                if (hidden.toString() === letters.toString()){
+                    wins++;
                     resetGame();
                 }
+            }
+
+            function correctGuess(userGuess) {
+                if (hidden.toString() !== letters.toString()){
+                    for (var i = 0; i < getAllIndexes(letters, userGuess).length; i++) {
+                    hidden[getAllIndexes(letters, userGuess)[i]] = userGuess;
+                    document.getElementById("secretWord").textContent = hidden.toString("");
+                    }
+                    checkWin();
+                } 
             }
             
 
