@@ -258,6 +258,14 @@ If you have any questions about this project or the material we have covered, pl
 
             function resetGame() {
                 var secretWord = secretWords[Math.floor(Math.random() * secretWords.length)];  
+
+                if (secretWords.length == 0) {
+                    document.getElementById("game").textContent = "Congratulations! You guessed them all!";
+                } else {
+                console.log(secretWord);
+                secretWords.splice(secretWords.indexOf(secretWord), 1)
+                console.log(secretWords);
+
                     letters = secretWord.split("");
                     hiddenLetters = ""; 
                     hidden=[];
@@ -265,16 +273,17 @@ If you have any questions about this project or the material we have covered, pl
                     console.log(letters);
 
                     //If the word is `madonna`, display it like this when the game starts: `_ _ _ _ _ _ _`.
-                for (var i = 0; i < letters.length; i++) {
-                    hiddenLetters = hiddenLetters + "_ "; 
-                    hidden.push("_ ");   
+                    for (var i = 0; i < letters.length; i++) {
+                        hiddenLetters = hiddenLetters + "_ "; 
+                        hidden.push("_ ");   
                 }
-                    document.getElementById("secretWord").textContent = hiddenLetters;
-                    document.getElementById("remaining").textContent = guesses;
-                    document.getElementById("wins").textContent = wins;
+                        document.getElementById("secretWord").textContent = hiddenLetters;
+                        document.getElementById("remaining").textContent = guesses;
+                        document.getElementById("wins").textContent = wins;
                     // console.log(hidden);
                     // console.log(hiddenLetters);
                     // console.log(letters);
+                }
 
             }
 
@@ -295,11 +304,15 @@ If you have any questions about this project or the material we have covered, pl
             }
 
             function correctGuess(userGuess) {
-                if (hidden.toString() !== letters.toString()){
+                hiddenLetters = "";
+                    if (hidden.toString() !== letters.toString()){
                     for (var i = 0; i < getAllIndexes(letters, userGuess).length; i++) {
                     hidden[getAllIndexes(letters, userGuess)[i]] = userGuess;
-                    document.getElementById("secretWord").textContent = hidden.toString("");
                     }
+                    for (var i = 0; i < letters.length; i++) {
+                        hiddenLetters = hiddenLetters + hidden[i]; 
+                    }
+
                     checkWin();
                 } 
             }
@@ -327,6 +340,9 @@ If you have any questions about this project or the material we have covered, pl
                 if (letters.indexOf(userGuess) != -1) {
                     // * As the user guesses the correct letters, reveal them: `m a d o _  _ a`.
                     correctGuess(userGuess); 
+                    document.getElementById("secretWord").textContent = hiddenLetters;
+                    console.log(hiddenLetters);
+
                 } else if (validGuesses.indexOf(userGuess) != -1) {
                     incorrectGuess(userGuess);
                 }
