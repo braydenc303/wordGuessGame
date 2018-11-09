@@ -39,6 +39,7 @@ function resetGame() {
     //chooses the current word randomly from the list of available words
     var secretWord = secretWords[Math.floor(Math.random() * secretWords.length)];  
     // console.log(secretWord);
+    // removes the current word from the array of available words
     secretWords.splice(secretWords.indexOf(secretWord), 1)
     // console.log(secretWords);
 
@@ -121,7 +122,7 @@ function incorrectGuess(userGuess) {
         document.getElementById("remaining").textContent = guesses;
         incorrect.push(userGuess);
         document.getElementById("lettersGuessed").textContent = incorrect;
-        validGuesses.splice(validGuesses.indexOf(userGuess), 1)
+        validGuesses.splice(validGuesses.indexOf(userGuess), 1);
         // console.log(validGuesses);
 }
 
