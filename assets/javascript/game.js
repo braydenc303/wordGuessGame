@@ -4,6 +4,14 @@
 // stores all possible words
 var secretWords = ["hi", "thrilled", "green", "ruby", "leeloo", "perfect", "fifth", "element", "finger", "cab", "autowash", "priest"];
 
+// holds the array of image addresses
+var images = ["assets/images/wordoftheday.jpg", "assets/images/thrilled.jpg", "assets/images/green.jpg", "assets/images/ruby.jpg", "assets/images/leeloo.gif", "assets/images/perfect.jpg", "assets/images/fifth.jpg", "assets/images/element.png", "assets/images/finger.png", "assets/images/cab.jpg", "assets/images/autowash.jpg", "assets/images/priest.jpg"]
+
+// holds the position of the next image to display
+var nextImg = 0;
+
+var nxt = "";
+
 // tracks wins
 var wins = -1;
 
@@ -39,8 +47,14 @@ function resetGame() {
     //chooses the current word randomly from the list of available words
     var secretWord = secretWords[Math.floor(Math.random() * secretWords.length)];  
     // console.log(secretWord);
+    nextImg = secretWords.indexOf(secretWord);
+
+    nxt = images[nextImg];
+    
     // removes the current word from the array of available words
-    secretWords.splice(secretWords.indexOf(secretWord), 1)
+    images.splice(secretWords.indexOf(secretWord), 1);
+
+    secretWords.splice(secretWords.indexOf(secretWord), 1);
     // console.log(secretWords);
 
     // populates an array with the letters of the secret word
@@ -48,7 +62,7 @@ function resetGame() {
     //resets the string of hidden and guessed letters
     hiddenLetters = ""; 
     //resets the array of hidden and guessed letters
-    hidden=[];
+    hidden =[];
     //resets the array of incorrect guesses
     incorrect= [];
     //resets the remaining guesses
@@ -94,11 +108,17 @@ function checkWin() {
         wins++;
         if(hiddenLetters != ""){
         alert( hiddenLetters + "!");
+        changeImage();
         }
         resetGame();
     }
-    
 }
+
+function changeImage() {
+    var image = document.getElementById("dispImg");
+    image.src = nxt;
+}
+
 // this function checks to see if all of the words have been guessed correctly
 function checkChampion() {
     if (wins == 12) {
@@ -138,6 +158,7 @@ document.onkeyup = function(event) {
 
     //check to see if player has won and increment the counter
     checkWin();
+
     //check to see if all words have been guessed
     checkChampion();  
      
@@ -146,6 +167,7 @@ document.onkeyup = function(event) {
     if (letters.indexOf(userGuess) != -1) {
         correctGuess(userGuess); 
         checkWin();
+        
         document.getElementById("secretWord").textContent = hiddenLetters;
         console.log(hiddenLetters);
     //if not add the letter to the previously guessed letters, remove that letter from valid guesses, decrement the guesses remaining, and if zero end the game

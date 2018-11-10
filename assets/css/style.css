@@ -18,3 +18,8 @@ body{
     text-align: center;
     font-family: 'Roboto Mono', monospace;
 }
+
+img {
+    width: 500px;
+    height: auto;
+}
