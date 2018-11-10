@@ -92,6 +92,9 @@ function getAllIndexes(arr, val) {
 function checkWin() {
     if (hidden.toString() === letters.toString()){
         wins++;
+        if(hiddenLetters != ""){
+        alert( hiddenLetters + "!");
+        }
         resetGame();
     }
     

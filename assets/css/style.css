@@ -1,0 +1,20 @@
+
+
+
+body{
+    background: black;
+}
+
+#game {
+    background: black;
+    color: lightslategray;
+    border-color: #dddddd;
+    border-width: 3px;
+    border-style: solid;
+    height: auto;
+    width: 960px;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+}
