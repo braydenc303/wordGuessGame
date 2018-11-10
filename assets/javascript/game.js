@@ -7,6 +7,14 @@ var secretWords = ["hi", "thrilled", "green", "ruby", "leeloo", "perfect", "fift
 // holds the array of image addresses
 var images = ["assets/images/wordoftheday.jpg", "assets/images/thrilled.jpg", "assets/images/green.jpg", "assets/images/ruby.jpg", "assets/images/leeloo.gif", "assets/images/perfect.jpg", "assets/images/fifth.jpg", "assets/images/element.png", "assets/images/finger.png", "assets/images/cab.jpg", "assets/images/autowash.jpg", "assets/images/priest.jpg"]
 
+// This would have been an easier solution to correlating these values. Instead of trying to keep two separate
+// arrays correlated, I could have simply made each word/image pair an object.
+// var combo = [ 
+//     {word: "hi",
+//     src: "assets/images/wordoftheday.jpg"},
+//     ]
+
+
 // holds the position of the next image to display
 var nextImg = 0;
 
