@@ -43,15 +43,23 @@ function resetGame() {
 
     //checks to see if all the words have been guessed
     checkChampion();
+
+    var x = document.getElementById("myAudio"); 
+    function playAudio() { 
+    x.play(); 
+    }
+    playAudio();
     
     //chooses the current word randomly from the list of available words
     var secretWord = secretWords[Math.floor(Math.random() * secretWords.length)];  
     // console.log(secretWord);
+
+    //the next two lines set the variables to correctly display the image relating to the word that was guessed for the following round.
     nextImg = secretWords.indexOf(secretWord);
 
     nxt = images[nextImg];
     
-    // removes the current word from the array of available words
+    // removes the current word and the corresponding image from the array of available words and images
     images.splice(secretWords.indexOf(secretWord), 1);
 
     secretWords.splice(secretWords.indexOf(secretWord), 1);
@@ -109,6 +117,7 @@ function checkWin() {
         if(hiddenLetters != ""){
         alert( hiddenLetters + "!");
         changeImage();
+        document.getElementById("myAudio").src = "assets/sounds/hot.mp3";
         }
         resetGame();
     }
@@ -153,6 +162,7 @@ function incorrectGuess(userGuess) {
 // Main Process------------------------------------------------------------
 // press any key to start. I had changed this to a button click to make life easier.
 // document.getElementById("myBtn").addEventListener("click", resetGame);
+
 document.onkeyup = function(event) {
     document.getElementById("begin").textContent = '';
 
@@ -169,7 +179,7 @@ document.onkeyup = function(event) {
         checkWin();
         
         document.getElementById("secretWord").textContent = hiddenLetters;
-        console.log(hiddenLetters);
+        // console.log(hiddenLetters);
     //if not add the letter to the previously guessed letters, remove that letter from valid guesses, decrement the guesses remaining, and if zero end the game
     } else if (validGuesses.indexOf(userGuess) != -1) {
         incorrectGuess(userGuess);
